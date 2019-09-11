@@ -41,6 +41,7 @@ module.exports = function() {
       if (err) {
         console.log('Error inserting document to db');
         res.status(500).send('Error creating new user.');
+        return;
       }
     });
 
