@@ -30,7 +30,7 @@ module.exports = function() {
     let token = jwt.sign(
       {
         exp: expiration / 1000,
-        user: username
+        user: user.id
       },
       JWT_SECRET
     );

@@ -13,8 +13,8 @@ PasswordValidator.config({
 module.exports = function() {
   let router = express.Router();
 
-  router.get('/', bodyParser.json(), async (req, res, next) => {
-    let { username, password, first, last } = req.query;
+  router.post('/', bodyParser.json(), async (req, res, next) => {
+    let { username, password, first, last } = req.body;
 
     let validationTest = PasswordValidator.test(password);
     if (validationTest['errors'].length >= 2) {
