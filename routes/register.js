@@ -18,13 +18,15 @@ module.exports = function() {
 
     let validationTest = PasswordValidator.test(password);
     if (validationTest['errors'].length >= 2) {
-      res.status(400).send(validationTest['errors'][0]);
+      res.status(400).send({ success: false, error: validationTest['errors'] });
       return;
     }
 
     let userCheck = await User.find({ username });
     if (userCheck.length >= 1) {
-      res.status(400).send('Username already exists');
+      res
+        .status(400)
+        .send({ success: false, error: 'Username already exists' });
       return;
     }
 
@@ -39,8 +41,10 @@ module.exports = function() {
 
     await user.save(err => {
       if (err) {
-        console.log('Error inserting document to db');
-        res.status(500).send('Error creating new user.');
+        res.status(500).send({
+          success: false,
+          error: 'Error creating new user. Please try again later.'
+        });
         return;
       }
     });
